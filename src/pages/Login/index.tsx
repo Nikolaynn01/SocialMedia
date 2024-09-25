@@ -36,18 +36,22 @@ export function Login() {
         .then(response => {
             if (response.status == "error") { 
                 if (response.message) {
-                    setError("root", {
+                    setError("login", {
                         message : response.message,
                     })
                 }
                 else {
-                    setError("root", {
+                    setError("login", {
                         message : "server error"
                     })                
                 }
             } else {
                 navigate("/profile");
             }
+        })
+        .catch(reject => {
+            console.log(reject.data);
+            
         })
 
     }
