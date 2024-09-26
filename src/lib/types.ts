@@ -18,7 +18,7 @@ export interface IResponse {
 
 export interface IWideUser extends IUser {
     followers : IUser[],
-    followings : IUser[]
+    following : IUser[]
 }
 
 export interface IContextType {

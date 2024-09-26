@@ -35,3 +35,8 @@ export const handleLoginUpd = async (data : ILoginUpd) : Promise<IResponse> => {
     const response = await Axios.patch("/update/login", data);
     return response.data
 }
+
+export const handlePicturUpload = async (data : FormData) : Promise<IResponse> => {
+    const response = await Axios.patch("/profile/upload", data);
+    return response.data;
+}
