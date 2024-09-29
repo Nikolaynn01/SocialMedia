@@ -12,7 +12,7 @@ export interface IUser {
 export interface IResponse {
     status : string;
     message? : string;
-    payload? : string;
+    payload? : unknown;
     user?:IWideUser
 }
 
@@ -34,6 +34,12 @@ export interface IPassUpd {
 export interface ILoginUpd {
     password : string,
     login : string
+}
+
+export interface IPost {
+    id : number,
+    title : string,
+    picture : string
 }
 
 export type InputUser = Omit<IUser, "id" | "isPravite" | "cover" | "picture">

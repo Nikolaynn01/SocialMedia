@@ -11,6 +11,8 @@ import { Search } from './pages/Profile/Search'
 import { Posts } from './pages/Profile/Posts'
 import { Followers } from './pages/Profile/Followers'
 import { Followings } from './pages/Profile/Followings'
+import { Account } from './pages/Profile/Search/Account'
+
 
 const routes = createBrowserRouter([
   {
@@ -48,7 +50,11 @@ const routes = createBrowserRouter([
       {
         path : "followings",
         element : <Followings/>
-      }
+      },
+      {
+        path : ":id",
+        element : <Account/>
+      },
     ]
   }
 ])

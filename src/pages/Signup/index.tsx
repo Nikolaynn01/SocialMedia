@@ -36,11 +36,11 @@ export function Signup() {
         .then(response => {
             if (response.status == "error") {
                 if (response.message) {
-                    setError("root", {
+                    setError("login", {
                         message : response.message
                     })
                 } else {
-                    setError("root", {
+                    setError("login", {
                         message : "server error"
                     })
                 }
