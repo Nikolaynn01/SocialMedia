@@ -3,12 +3,13 @@ import { IContextType } from "../../../lib/types"
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography } from 'mdb-react-ui-kit';
 import { BASE_URL, DEFAULT_PIC } from "../../../lib/constant";
 import { useRef } from "react";
-import { handlePicturUpload } from "../../../lib/api";
+import { handleBackgroundUpload, handlePicturUpload } from "../../../lib/api";
 
 export  function Dashboard() {
 
    const {account, setAccount} = useOutletContext<IContextType>()
    const photo = useRef<HTMLInputElement | null>(null);
+   const background = useRef<HTMLInputElement | null>(null);
 
    const handlePic = () => {
       if (photo.current) {
@@ -27,6 +28,24 @@ export  function Dashboard() {
       }
    }
 
+
+   const handleBackground = () => {
+      if (background.current) {
+        const file = background.current.files?.[0];
+        if (file) {
+          const form = new FormData();
+          form.append("cover", file);
+
+          handleBackgroundUpload(form) 
+          .then(response => {
+            if (response.payload) {
+              setAccount({...account, cover : response.payload as string})
+            } 
+          })
+        }
+        
+      }
+   }
   return (
 
     <div className="gradient-custom-2" 
@@ -36,8 +55,27 @@ export  function Dashboard() {
            <MDBCol lg="9" xl="7">
               <MDBCard>
 
-                <div className="rounded-top text-white d-flex flex-row" style={{ backgroundColor: '#000', height: '200px' }}>
-                  <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '150px' }}>
+                <div className="rounded-top text-white d-flex flex-row" 
+                  style={{ 
+                    backgroundImage : account.cover 
+                    ? `url('http://localhost:4002/${account.cover}')` 
+                    : "none",
+                    backgroundColor : !account.cover 
+                    ? "black" 
+                    : "transparent",
+                    backgroundSize : "cover",
+                    backgroundPosition : "center",
+                    height: '200px',
+                  }}
+                  onClick={() => background.current?.click()}>
+                    
+                    <input 
+                      type="file"
+                      ref={background}
+                      onChange={handleBackground}
+                      style={{display:"none"}}
+                    />
+                    <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '150px' }}>
 
                     <input 
                       type="file"
