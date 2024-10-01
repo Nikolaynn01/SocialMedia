@@ -9,7 +9,7 @@ export interface IUser {
     picture : string;
 }
 
-export interface IAccount extends IUser {
+export interface IAccount extends Omit<IUser, "login" | "password"> {
     available : boolean;
     connection : {
         blockedMe : boolean,

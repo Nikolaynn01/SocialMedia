@@ -1,5 +1,5 @@
-import { useParams } from "react-router-dom";
-import { handleGetAccount } from "../../../lib/api"
+import { useNavigate, useParams } from "react-router-dom";
+import { handleCancelRequest, handleGetAccount, handleSendFollow, handleUnfollow } from "../../../lib/api"
 import { useEffect, useState } from "react";
 import { IAccount } from "../../../lib/types";
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography } from 'mdb-react-ui-kit';
@@ -9,9 +9,72 @@ import { Gallery } from "../../../components/Gallery";
 
 export const Account = () => {
 
+    const {id} = useParams();
+
+    const navigate = useNavigate();
+
     const [account, setAccount] = useState<IAccount|null>(null);
 
-    const {id} = useParams();
+    const handleRequest = () => {
+      if (account) {
+        if (account.connection.following) {
+          unfollowUser();
+        } else if (account.connection.requested) {
+          cancelRequest();
+        } else {
+          followUser();
+        }
+      }
+    }
+
+    const followUser = () => {
+      if (account) {
+        handleSendFollow(account.id)
+        .then(response => {
+          if (response.status == "following") {
+            setAccount({
+              ...account, 
+              connection : {...account.connection, following : true}
+            })
+          } 
+          else if (response.status == "requested") {
+            setAccount({
+              ...account,
+              connection : {...account.connection, requested : true}
+            })
+          }
+        })
+      }
+    }
+
+    const unfollowUser = () => {
+        if (account) {
+          handleUnfollow(account.id)
+          .then(response => {
+            if (response.status == "unfollowed") {
+              setAccount({
+                ...account,
+                connection : {...account.connection, following : false}
+              })
+            }
+          })
+        }
+    }
+
+    const cancelRequest = () => {
+      if (account) {
+        handleCancelRequest(account.id)
+        .then(response => {
+          console.log(response);
+          if (response.status == "cancelled") {
+            setAccount({
+              ...account,
+              connection : {...account.connection, requested : false}
+            })
+          }
+        })
+      }
+    }
 
     useEffect(() => {
         if (id) {
@@ -19,10 +82,12 @@ export const Account = () => {
             .then(response => {
                 if (response.status == "ok") {
                     setAccount(response.payload as IAccount);
+                } else {
+                  navigate("/profile");
                 }
             })
         }
-    }, [id]);   
+    }, [id, navigate]);   
 
     return (
 
@@ -87,6 +152,18 @@ export const Account = () => {
                     </div>
                   </div>
 
+                  <button onClick={handleRequest} className="btn btn-info">
+                    {
+                      account?.connection.following 
+                      ? "UNFOLLOW"
+                      : account?.connection.followsMe
+                      ? "FOLLOW BACK"
+                      : account?.connection.requested
+                      ? "CANCEL REQUEST"
+                      : "FOLLOW"
+                    }
+                  </button>
+
                   <MDBCardBody className="text-black p-4">
                     <div className="d-flex justify-content-between align-items-center mb-4">
                       <MDBCardText className="lead fw-normal mb-0"></MDBCardText>
@@ -104,6 +181,7 @@ export const Account = () => {
                         </div>
                   </div>
                   }
+
                 </MDBCard>
               </MDBCol>
             </MDBRow>
