@@ -126,7 +126,7 @@ export  function Dashboard() {
                 </div>
                 <div className="d-flex justify-content-between align-items-center mb-4">
                   <MDBCardText className="lead fw-normal mb-0">Recent photos</MDBCardText>
-                  <MDBCardText className="mb-0"><a href="#!" className="text-muted">Show all</a></MDBCardText>
+                  <MDBCardText className="mb-0"><a href="http://localhost:5173/profile/posts" className="text-muted">Show all</a></MDBCardText>
                 </div>
               </MDBCardBody>
             </MDBCard>
@@ -134,7 +134,7 @@ export  function Dashboard() {
         </MDBRow>
       </MDBContainer>
     </div>
-  );
+  )
 }
 
 

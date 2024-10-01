@@ -15,7 +15,7 @@ export const Profile = () => {
             if (!response.user) {
                 navigate("/login")
             } else {
-                setAccount(response.user);
+                setAccount(response.user);                
             }
         })
     }, []);

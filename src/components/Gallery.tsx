@@ -6,10 +6,10 @@ interface IProps {
 }
 export const Gallery:React.FC<IProps> = ({posts}) => {
     return <>
-        <p>You have {posts.length} posts</p>
+        <h2 style={{textAlign:"center"}}>{posts?.length} posts</h2>
         <div className="list">
             {
-                posts.map(post => 
+                posts?.map(post => 
                     <div key={post.id}>
                         <img 
                             src={BASE_URL + post.picture}

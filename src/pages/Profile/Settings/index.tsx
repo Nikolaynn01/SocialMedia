@@ -1,5 +1,6 @@
 import { EditLogin } from "./EditLogin"
 import { EditPassword } from "./EditPassword"
+import { SetPrivacy } from "./SetPrivacy"
 
 
 
@@ -7,6 +8,7 @@ import { EditPassword } from "./EditPassword"
 export const Settings = () => {
 
     return <> 
+        <SetPrivacy/>
         <EditPassword/>
         <EditLogin/>
     </>

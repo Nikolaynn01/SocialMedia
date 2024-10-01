@@ -15,8 +15,7 @@ export const Search = () => {
         } else {
             handleSearch(text)
             .then(response => {
-                console.log(response);
-                setUsers(response.payload as IUser[])
+                setUsers(response.payload as IUser[]);
             })
         }
     }, [text]);
