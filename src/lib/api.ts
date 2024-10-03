@@ -85,3 +85,18 @@ export const handleCancelRequest = async (id: string): Promise<IResponse> => {
     const response = await Axios.delete("/request/cancel/" + id);
     return response.data;
 }
+
+export const handleRequests = async (): Promise<IResponse> => {
+    const response = await Axios.get("/requests");
+    return response.data;
+}
+
+export const handleAcceptRequest = async (id: string): Promise<IResponse> => {
+    const response = await Axios.patch("/requests/accept/" + id);
+    return response.data;
+}
+
+export const handleDeclineRequest = async (id: string): Promise<IResponse> => {
+    const response = await Axios.patch("/requests/decline/" + id);
+    return response.data;
+}

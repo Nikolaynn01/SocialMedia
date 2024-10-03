@@ -15,12 +15,27 @@ export const Account = () => {
 
     const [account, setAccount] = useState<IAccount|null>(null);
 
+    useEffect(() => {
+      if (id) {
+          handleGetAccount(id)
+          .then(response => {
+              if (response.status == "ok") {
+                  setAccount(response.payload as IAccount);
+              } else {
+                navigate("/profile");
+              }
+          })
+      }
+  }, [id, navigate]);  
+
     const handleRequest = () => {
       if (account) {
         if (account.connection.following) {
           unfollowUser();
         } else if (account.connection.requested) {
           cancelRequest();
+        } else if (account.connection.followsMe){
+          followUser();
         } else {
           followUser();
         }
@@ -37,7 +52,7 @@ export const Account = () => {
               connection : {...account.connection, following : true}
             })
           } 
-          else if (response.status == "requested") {
+          if (response.status == "requested") {
             setAccount({
               ...account,
               connection : {...account.connection, requested : true}
@@ -75,19 +90,7 @@ export const Account = () => {
         })
       }
     }
-
-    useEffect(() => {
-        if (id) {
-            handleGetAccount(id)
-            .then(response => {
-                if (response.status == "ok") {
-                    setAccount(response.payload as IAccount);
-                } else {
-                  navigate("/profile");
-                }
-            })
-        }
-    }, [id, navigate]);   
+ 
 
     return (
 
@@ -154,13 +157,13 @@ export const Account = () => {
 
                   <button onClick={handleRequest} className="btn btn-info">
                     {
-                      account?.connection.following 
-                      ? "UNFOLLOW"
-                      : account?.connection.followsMe
-                      ? "FOLLOW BACK"
-                      : account?.connection.requested
-                      ? "CANCEL REQUEST"
-                      : "FOLLOW"
+                      account?.connection.followsMe && !account.connection.requested
+                      ? "Follow back"
+                      : account?.connection.requested && !account.connection.following
+                      ? "Cancel request"
+                      : account?.connection.following
+                      ? "Unollow"
+                      : "Follow"
                     }
                   </button>
 

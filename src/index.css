@@ -20,24 +20,24 @@
     background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1))
   } 
 
-  nav{
+  .nav{
     display: flex;
     gap: 20px;
     background: black;
     padding: 20px;
   }
 
-  nav a {
+  .nav a {
     color: white;
     text-decoration: none;
     transition: 0.6s;
   }
 
-  nav a:hover {
-    color: hotpink;
+  .nav a:hover {
+    color: gray;
   }
 
-  nav button {
+  .nav button {
     border: none;
     background: none;
     color: white;
@@ -45,8 +45,9 @@
     transition: 0.6s;
   }
 
-  a.active {
-    background: mediumpurple;
+  .nav  a.active {
+    background: whitesmoke;
+    color: black;
     padding: 5px 10px;
   }
   
@@ -74,4 +75,103 @@
     height: 250px;
     border-radius: 10px;
     object-fit: cover;
+  }
+
+  .navigation {
+    display: flex;
+    gap: 20px;
+    background: whitesmoke;
+    padding: 10px;
+  }
+
+  .navigation a {
+    position: relative;
+    text-decoration: none;
+    color: black;
+    padding-bottom: 5px;
+  }
+
+  .navigation a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: black;
+    left: 0;
+    bottom: 0;
+    transition: with 0.3s ease;
+  }
+
+  .navigation a:hover::after,
+  .navigation a:focus::after {
+    width: 100%;
+  }
+
+  .request-container {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+  }
+
+  .avatar-container {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+
+  .avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .user-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .user-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 10px;
+  }
+
+  .accept, .decline {
+    padding: 5px 10 px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  } 
+
+  .accept {
+    background-color: blueviolet;
+    color: white;
+  }
+
+  .decline {
+    background-color: orange;
+    color: white;
+  }
+
+  .accept:hover {
+    background-color: blue;
+  }
+
+  .decline:hover {
+    background-color: orangered;
   }

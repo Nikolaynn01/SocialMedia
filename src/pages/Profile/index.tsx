@@ -18,7 +18,7 @@ export const Profile = () => {
                 setAccount(response.user);                
             }
         })
-    }, []);
+    }, [navigate]);
 
     const logout = () => {
         handleLogout()
@@ -31,13 +31,14 @@ export const Profile = () => {
     }
 
     return account && <>
-        <nav>
+        <nav className="nav">
             <NavLink to="/profile" end>Profile</NavLink>
             <NavLink to="/profile/settings">Settings</NavLink>
             <NavLink to="/profile/search">Search</NavLink>
             <NavLink to="/profile/posts">Posts</NavLink>
             <NavLink to="/profile/followers">Followers</NavLink>
             <NavLink to="/profile/followings">Folowings</NavLink>
+            <NavLink to="/profile/notifications">Notifications</NavLink>
             <button onClick={() => logout()}>Logout</button>
         </nav>
         <Outlet

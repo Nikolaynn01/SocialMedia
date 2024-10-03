@@ -12,6 +12,10 @@ import { Posts } from './pages/Profile/Posts'
 import { Followers } from './pages/Profile/Followers'
 import { Followings } from './pages/Profile/Followings'
 import { Account } from './pages/Profile/Search/Account'
+import { Notifications } from './pages/Profile/Notifications'
+import { Requests } from './pages/Profile/Notifications/Requests/Requests'
+import { Likes } from './pages/Profile/Notifications/Likes/Likes'
+import { Comments } from './pages/Profile/Notifications/Comments/Comments'
 
 
 const routes = createBrowserRouter([
@@ -52,9 +56,27 @@ const routes = createBrowserRouter([
         element : <Followings/>
       },
       {
+        path : "notifications",
+        element : <Notifications/>,
+        children : [
+          {
+            path : "requests",
+            element : <Requests/>
+          },
+          {
+            path : "likes",
+            element : <Likes/>
+          },
+          {
+            path : "comments",
+            element : <Comments/>
+          }
+        ]
+      },
+      {
         path : ":id",
         element : <Account/>
-      },
+      }
     ]
   }
 ])

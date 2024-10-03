@@ -103,7 +103,7 @@ export  function Dashboard() {
               <div className="p-4 text-black" style={{ backgroundColor: '#F8F9FA' }}>
                 <div className="d-flex justify-content-end text-center py-1">
                   <div>
-                    <MDBCardText className="mb-1 h5">253</MDBCardText>
+                    <MDBCardText className="mb-1 h5">1</MDBCardText>
                     <MDBCardText className="small text-muted mb-0">Photos</MDBCardText>
                   </div>
                   <div className="px-3">

@@ -9,6 +9,18 @@ export interface IUser {
     picture : string;
 }
 
+export interface IRequestedUser {
+    id : string;
+    user : {
+        cover : string;
+        id : string;
+        isPrivate : string;
+        name : string;
+        picture : string;
+        surname : string;
+    }
+}
+
 export interface IAccount extends Omit<IUser, "login" | "password"> {
     available : boolean;
     connection : {
@@ -37,7 +49,7 @@ export interface IWideUser extends IUser {
 
 export interface IContextType {
     account : IWideUser;
-    setAccount : (user : IWideUser) => void;
+    setAccount : (user: IWideUser) => void;
 }
 
 export interface IPassUpd {
@@ -54,6 +66,10 @@ export interface IPost {
     id : number;
     title : string;
     picture : string;
+}
+
+export interface IContextRequests {
+    handleDataRequests : (requests: IRequestedUser[]) => void;
 }
 
 export type InputUser = Omit<IUser, "id" | "isPravite" | "cover" | "picture">
