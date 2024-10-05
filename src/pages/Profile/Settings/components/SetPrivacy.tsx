@@ -5,7 +5,7 @@ import {
     MDBRow,
     MDBCol,
 } from 'mdb-react-ui-kit';
-import { handleSetAccount, handleVerify } from "../../../lib/api";
+import { handleVerify, handleSetAccount } from '../../../../lib/api';
 import { useEffect, useState } from "react";
 
 
@@ -19,7 +19,7 @@ export const SetPrivacy = () => {
         .then(response => {
             setIsPrivate(response.user?.isPrivate as string)
         })
-    })
+    }, []);
 
     const handleChangeStatus = () => {
         handleSetAccount()

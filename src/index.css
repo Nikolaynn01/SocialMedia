@@ -71,8 +71,6 @@
   }
 
   .list img {
-    width: 250px;
-    height: 250px;
     border-radius: 10px;
     object-fit: cover;
   }
@@ -174,4 +172,45 @@
 
   .decline:hover {
     background-color: orangered;
+  }
+
+  .post-container {
+    position: relative;
+    height: 200px;
+    width: 200px;
+    border: 6px solid red;
+  }
+  .post-img {
+    position: absolute;
+    top : 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .post-container:hover .cover {
+    height: 100%;
+  }
+
+  .like-btn {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    opacity: 0;
+  }
+
+  .post-container:hover .like-btn {
+    opacity: 1;
+    transform: rotate();
   }

@@ -47,11 +47,6 @@ export interface IWideUser extends IUser {
     following : IUser[];
 }
 
-export interface IContextType {
-    account : IWideUser;
-    setAccount : (user: IWideUser) => void;
-}
-
 export interface IPassUpd {
     old : string;
     newpwd : string;
@@ -64,12 +59,29 @@ export interface ILoginUpd {
 
 export interface IPost {
     id : number;
+    likes : IUser[];
     title : string;
     picture : string;
+    isLiked : boolean;
 }
 
-export interface IContextRequests {
+export interface IContextType {
+    account : IWideUser;
+    setAccount : (user: IWideUser) => void;
+}
+
+export interface IContextTypeRequests {
     handleDataRequests : (requests: IRequestedUser[]) => void;
+}
+
+export interface IContextTypeAccount {
+    account : IAccount;
+    setAccount : (account: IAccount) => void;
+}
+
+export interface IAccountProps {
+    account : IAccount;
+    setAccount : (account: IAccount) => void;
 }
 
 export type InputUser = Omit<IUser, "id" | "isPravite" | "cover" | "picture">

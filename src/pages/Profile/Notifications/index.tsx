@@ -7,10 +7,8 @@ export const Notifications = () => {
     const [notifications, setNotification] = useState<IRequestedUser[]>([]);
 
     const handleDataRequests = (data: IRequestedUser[]) => {
-        setNotification(data)
+        setNotification(data);
     }
-
-    
 
     return <>
         <div className="navigation">

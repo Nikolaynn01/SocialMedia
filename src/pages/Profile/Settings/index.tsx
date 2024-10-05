@@ -1,6 +1,7 @@
-import { EditLogin } from "./EditLogin"
-import { EditPassword } from "./EditPassword"
-import { SetPrivacy } from "./SetPrivacy"
+
+import { EditLogin } from "./components/EditLogin"
+import { EditPassword } from "./components/EditPassword"
+import { SetPrivacy } from "./components/SetPrivacy"
 
 
 

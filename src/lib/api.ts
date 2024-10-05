@@ -100,3 +100,13 @@ export const handleDeclineRequest = async (id: string): Promise<IResponse> => {
     const response = await Axios.patch("/requests/decline/" + id);
     return response.data;
 }
+
+export const handlePostReaction = async (id: number): Promise<IResponse> => {
+    const response = await Axios.post("/posts/react/" + id);
+    return response.data;
+}
+
+export const handleBlock = async (id: string): Promise<IResponse> => {
+    const response = Axios.post("/block/" + id);
+    return (await response).data;
+}

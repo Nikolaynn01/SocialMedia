@@ -7,38 +7,38 @@ import {
     MDBInput,
 } from 'mdb-react-ui-kit';
 
+
 import {useForm} from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { useNavigate } from 'react-router-dom';
-import { ILoginUpd } from '../../../lib/types';
-import { handleLoginUpd } from '../../../lib/api';
-
+import { handlePassUpd } from '../../../../lib/api';
+import { IPassUpd } from '../../../../lib/types';
 
 const schema = yup.object().shape({
-    password : yup.string().required("Enter the password"),
-    login : yup.string().required("Enter a login")
+    old : yup.string().required("Enter your password"),
+    newpwd : yup.string().min(8).required("password must be at least 8 characters")
 });
 
-export const EditLogin = () => {
+export const EditPassword = () => {
 
     const navigate = useNavigate();
-    
+
     const {register, handleSubmit, setError, formState: { errors }} = useForm({
         resolver : yupResolver(schema)
     });
 
-    const handleAdd = (data : ILoginUpd) => {
+    const handleAdd = (data : IPassUpd) => {
 
-        handleLoginUpd(data)
+        handlePassUpd(data) 
         .then(response => {
             if (response.status == "error") {
                 if (response.message) {
-                    setError("login", {
+                    setError("old", {
                         message : response.message
                     })
                 } else {
-                    setError("login", {
+                    setError("old", {
                         message : "server error"
                     })
                 }
@@ -47,27 +47,28 @@ export const EditLogin = () => {
             }
         })
     }
+
     return (
         <MDBContainer fluid>
             <MDBRow className='d-flex justify-content-center align-items-center'>
                 <MDBCol lg='8'>
                     <MDBCard className='my-5 rounded-3' style={{ maxWidth: '600px' }}>
                         <MDBCardBody className='px-5'>
-                        <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Login Update</h3>
+                            <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Password Update</h3>
                             <form onSubmit={handleSubmit(handleAdd)}>
-                                {errors.password && <p style={{color : "red"}}>{errors.password.message}</p>}
+                                {errors.old && <p style={{color : "red"}}>{errors.old.message}</p>}
                                 <MDBInput
                                     wrapperClass='mb-4'
-                                    label='password'
+                                    label='old password'
                                     type='password'
-                                    {...register("password", {required : true})}
+                                    {...register("old", {required : true})}
                                 />
-                                {errors.login && <p style={{color : "red"}}>{errors.login.message}</p>}
+                                {errors.newpwd && <p style={{color : "red"}}>{errors.newpwd.message}</p>}
                                 <MDBInput
                                     wrapperClass='mb-4'
-                                    label='login'
-                                    type='text'
-                                    {...register("login", {required : true})}
+                                    label='new password'
+                                    type='password'
+                                    {...register("newpwd", {required : true})}
                                 />
                                 <button type='submit' className='btn btn-outline-info' >Submit</button>
                             </form>

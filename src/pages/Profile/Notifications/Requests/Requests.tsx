@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
 import { handleAcceptRequest, handleDeclineRequest, handleRequests } from "../../../../lib/api";
-import { IContextRequests, IRequestedUser } from "../../../../lib/types";
+import { IRequestedUser } from "../../../../lib/types";
 import { BASE_URL, DEFAULT_PIC } from "../../../../lib/constant";
-import { useOutletContext } from "react-router-dom";
+
 
 export const Requests = () => {
-
-    const {handleDataRequests} = useOutletContext<IContextRequests>();
-
     const [requests, setRequests] = useState<IRequestedUser[]>([]);
 
     useEffect (() => {
@@ -17,8 +14,27 @@ export const Requests = () => {
                 setRequests(response.payload as IRequestedUser[])
             }    
         })
-        handleDataRequests(requests);
-    }, [requests]);
+    }, []);    
+
+    const handleAccept = (id: string) => {
+        handleAcceptRequest(id)
+        .then(response => {
+            if (response.message == "accepted") {
+                const temp = requests.filter(elem => elem.id != id);
+                setRequests(temp);
+            }
+        })
+    }
+    
+    const handleDecline = (id: string) => {
+        handleDeclineRequest(id)
+        .then(response => {
+            if (response.message == "declined") {
+                const temp = requests.filter(elem => elem.id != id);
+                setRequests(temp);
+            }
+        })
+    }
 
     return <>
         {
@@ -37,27 +53,14 @@ export const Requests = () => {
                             </div>
                             <div className="user-info">
                                 <p className="user-name">{request.user.name + " " + request.user.surname}</p>
+
                                 <div className="action-buttons"> 
 
-                                <button className="accept" onClick={() => handleAcceptRequest(request.id)
-                                                                        .then(response => {
-                                                                            if (response.message == "accepted") {
-                                                                                const temp = requests.filter(elem => elem.id != request.id);
-                                                                                setRequests(temp);
-                                                                            }  
-                                                                            })                      
-                                }>accept</button>
-
-                                <button className="decline" onClick={() => handleDeclineRequest(request.id)
-                                                                        .then(response => {
-                                                                            if (response.message == "declined") {
-                                                                                const temp = requests.filter(elem => elem.id != request.id);
-                                                                                setRequests(temp);
-                                                                                } 
-                                                                            })
-                                }>decline</button>
-                
+                                <button className="accept" onClick={() => handleAccept(request.id)}>accept</button>
+                                <button className="decline" onClick={() => handleDecline(request.id)}>decline</button>
+                                
                                 </div>
+
                             </div>
                         </div>
                     </div>
